@@ -59,4 +59,91 @@ public class Gcd{
 		}
 		return gcd;
 	}
+	
+	/**
+	  Euclidean RECURSION algorithm. Uses Modulus a%b to reduce the argument until it becomes 0
+	*/
+	private long gcd2(long a, long b){
+		long gcd = 0;
+		if(a==0){
+		    gcd = b ;
+		}
+		else {
+		     if(a > b){
+		     	  gcd = gcd(a%b , b);
+		     }     
+		     else{
+		     	  gcd = gcd(b%a, a);
+		     }
+		}
+		return gcd;
+	}
+	
+	/**
+	  Euclidean RECURSION algorithm. Same as gcd2() only a short version
+	*/
+	private long gcd3(long a, long b){
+		return a==0 ? b : gcd3(b % a , a);	
+	}
+	
+	/**
+		Euclidean ITERATIVE algorithm. Uses  Modulus a%b to reduce the argument until it becomes 0.
+		Since this method doesn't use Recursion, therefore the Space complexity is reduced to O(1) i.e. constant space
+		Time complexity will continue to be O(k) where k is the no. of digits in the input min(a, b). or O(log n)
+	*/
+	
+	private long gcd4(long a, long b){
+		long temp = 0l;
+		
+		while(a!= 0l && b!=0){
+			if(a < b){
+				temp = a;
+				a = b;
+				b = temp;
+			}
+			a = a%b;
+		}
+		if(a == 0){
+		   return b;
+		}
+		else{
+		   return a;
+		}
+	}
+	
+	/**
+		Binary RECURSION algorithm. Algorithm created by Josef Stein in 1967. 
+		https://en.wikipedia.org/wiki/Binary_GCD_algorithm
+		Time complexity same O(log n) but 60% more efficient than Euclidean GCD algorithm.
+		Optimization possible: Convert this Algorithm from Recursive to Iterative to get Space complexity of O(1)
+	*/
+	private long gcd5(long a, long b){
+	    if(a == b) return a;
+	    if(a == 0) return b;
+	    if(b == 0) return a;
+	    
+	    if(isEven(a) && isEven(b)){
+	         return gcd5((a >> 1), (b >> 1)) << 1;         // Dividing a / 2, b / 2 and multiplying gcd result x 2
+	    }
+	    if(isEven(a) && isOdd(b)){
+	         return gcd5((a >> 1), b);         // Dividing a / 2	
+	    }
+	    if(isOdd(a) && isEven(b)){
+	         return gcd5(a, (b >> 1));         // Dividing b / 2
+	    }
+		
+	    //Here both a & b are Odd
+		if (a > b)
+			return gcd5((a-b), b);	// Reducing the 1st argument by making it a-b since a>b
+		else
+			return gcd5((b-a), a);	// Reducing the 1st argument by making it b-a since b>a
+		    
+		    
+	   private boolean isEven(long x){
+	   	return (x & 1) == 0;
+	   }
+	   private boolean isOdd(long x){
+	   	return (x & 1) == 1;
+	   }
+	}
   }
