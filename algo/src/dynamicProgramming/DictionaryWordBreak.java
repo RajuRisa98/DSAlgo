@@ -34,7 +34,7 @@ public class DictionaryWordBreak{
 		
 		Set<String> dictionary=new HashSet<>();
 		for(String s: dict) dictionary.add(s);
-    return _dictionaryWordBreak(dictionary, sentence, 0);
+      	        return _dictionaryWordBreak(dictionary, sentence, 0);
 	}
 	
 	private boolean _dictionaryWordBreak(Set<String> dictionary, String sentence, int leftIdx){
@@ -45,7 +45,7 @@ public class DictionaryWordBreak{
 		for(int rightIdx=leftIdx+1; rightIdx<=sentence.length(); rightIdx++){
 			String word=sentence.substring(leftIdx, rightIdx);
 			if(dictionary.contains(word)){
-        isSuccess = _dictionaryWordBreak(dictionary, sentence, rightIdx);
+              			isSuccess = _dictionaryWordBreak(dictionary, sentence, rightIdx);
 				if(isSuccess){
 					break;
 				}
